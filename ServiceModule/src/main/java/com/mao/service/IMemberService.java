@@ -54,7 +54,7 @@ public interface IMemberService {
      * @param column 模糊查询列
      * @param keyWord 模糊查询关键字
      * @return 返回有两类结果：
-     * 1、key = allRecorders、value = List集合，数据的查询结果
+     * 1、key = allMembers、value = List集合，数据的查询结果
      * 2、key = allRecorders、value = Long统计结果
      */
     public Map<String, Object> split(Integer currentPage, Integer lineSize, String column, String keyWord);

@@ -6,7 +6,7 @@ import com.mao.dao.impl.MemberDAOImpl;
 import java.sql.Connection;
 
 public class DAOFactory {
-    private IMemberDAO getIMemberDAOInstance(Connection conn) {
+    public static IMemberDAO getIMemberDAOInstance(Connection conn) {
         return new MemberDAOImpl(conn);
     }
 }
