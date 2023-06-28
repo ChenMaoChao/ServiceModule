@@ -77,7 +77,7 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
             vo.setSex(rs.getString(4));
             vo.setEmail(rs.getString(5));
             vo.setBirthday(rs.getDate(6));
-            vo.setName(rs.getString(7));
+            vo.setNote(rs.getString(7));
         }
         return vo;
     }
@@ -97,7 +97,7 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
             vo.setSex(rs.getString(4));
             vo.setBirthday(rs.getDate(5));
             vo.setEmail(rs.getString(6));
-            vo.setName(rs.getString(7));
+            vo.setNote(rs.getString(7));
         }
         return vo;
     }
@@ -136,7 +136,7 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
             vo.setSex(rs.getString(4));
             vo.setBirthday(rs.getDate(5));
             vo.setEmail(rs.getString(6));
-            vo.setName(rs.getString(7));
+            vo.setNote(rs.getString(7));
             all.add(vo);
         }
         return all;

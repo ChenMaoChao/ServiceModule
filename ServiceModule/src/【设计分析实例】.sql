@@ -8,7 +8,7 @@ CREATE TABLE member(
     sex             VARCHAR(10),
     email           VARCHAR(50),
     birthday        DATE,
-    note            BLOB,
+    note            LONGTEXT,
     CONSTRAINT pk_mid PRIMARY KEY (mid)
 )engine = innodb;
 

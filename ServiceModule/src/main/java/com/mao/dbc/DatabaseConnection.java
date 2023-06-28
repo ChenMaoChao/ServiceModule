@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class DatabaseConnection implements AutoCloseable{
 
     public static final String DBDRIVER = "com.mysql.cj.jdbc.Driver" ;
-    public static final String DBURL = "jdbc:mysql://localhost:3306/member" ;
+    public static final String DBURL = "jdbc:mysql://localhost:3306/mao" ;
     public static final String USER = "root" ;
     public static final String PASSWORD = "mysqladmin" ;
     private Connection conn;//数据库连接对象
@@ -39,7 +39,7 @@ public class DatabaseConnection implements AutoCloseable{
     @Override
     public void close() throws SQLException {
         if (this.conn != null) {
-            this.close();
+            this.conn.close();
         }
     }
 }

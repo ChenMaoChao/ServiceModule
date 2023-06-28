@@ -68,4 +68,17 @@ public class Member implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "mid='" + mid + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthday=" + birthday +
+                ", note='" + note + '\'' +
+                '}' + "\n";
+    }
 }

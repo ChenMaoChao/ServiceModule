@@ -32,6 +32,7 @@ public class MemberService implements IMemberService {
             this.dbc.getConnection().commit();
             return flag;
         } catch (Exception e) {
+            e.printStackTrace();
             try {
                 this.dbc.getConnection().rollback();
             } catch (SQLException ex) {
@@ -59,6 +60,7 @@ public class MemberService implements IMemberService {
             }
             this.dbc.getConnection().setAutoCommit(false);
             IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance(this.dbc.getConnection());
+            System.out.println("----------------");
             flag = memberDAO.doEdit(vo);
             this.dbc.getConnection().commit();
             return flag;
