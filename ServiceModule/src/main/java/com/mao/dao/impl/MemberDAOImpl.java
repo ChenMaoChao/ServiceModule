@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
-    public MemberDAOImpl(Connection conn) {
-        super(conn);
-    }
+
 
     @Override
     public boolean doCreate(Member vo) throws SQLException {

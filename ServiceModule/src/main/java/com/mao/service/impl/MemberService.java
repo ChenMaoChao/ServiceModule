@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class MemberService implements IMemberService {
-    private DatabaseConnection dbc = new DatabaseConnection(); //获得数据库连接以及关闭处理
 
     @Override
     public boolean add(Member vo) {
@@ -22,29 +21,25 @@ public class MemberService implements IMemberService {
             if (!(vo.getSex().equalsIgnoreCase("男") || vo.getSex().equalsIgnoreCase("女"))) {
                 return false;
             }
-            this.dbc.getConnection().setAutoCommit(false);
-            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance(this.dbc.getConnection());
+            DatabaseConnection.getConnection().setAutoCommit(false);
+            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance();
             if (memberDAO.findById(vo.getMid()) == null) { //当前数据可以查找到
                 if (memberDAO.findByEmail(vo.getEmail()) == null) { //当前数据找不到重复的email
                     flag = memberDAO.doCreate(vo); //数据保存
                 }
             }
-            this.dbc.getConnection().commit();
+            DatabaseConnection.getConnection().commit();
             return flag;
         } catch (Exception e) {
             e.printStackTrace();
             try {
-                this.dbc.getConnection().rollback();
+                DatabaseConnection.getConnection().rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             return false;
         }finally {
-            try {
-                this.dbc.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DatabaseConnection.close();
         }
     }
 
@@ -58,25 +53,20 @@ public class MemberService implements IMemberService {
             if (!(vo.getSex().equalsIgnoreCase("男") || vo.getSex().equalsIgnoreCase("女"))) {
                 return false;
             }
-            this.dbc.getConnection().setAutoCommit(false);
-            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance(this.dbc.getConnection());
-            System.out.println("----------------");
+            DatabaseConnection.getConnection().setAutoCommit(false);
+            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance();
             flag = memberDAO.doEdit(vo);
-            this.dbc.getConnection().commit();
+            DatabaseConnection.getConnection().commit();
             return flag;
         } catch (Exception e) {
             try {
-                this.dbc.getConnection().rollback();
+                DatabaseConnection.getConnection().rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             return false;
         }finally {
-            try {
-                this.dbc.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DatabaseConnection.close();
         }
     }
 
@@ -89,56 +79,44 @@ public class MemberService implements IMemberService {
             }
             Set<String> set = new HashSet<>();
             set.addAll(Arrays.asList(ids));
-            this.dbc.getConnection().setAutoCommit(false);
-            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance(this.dbc.getConnection());
+            DatabaseConnection.getConnection().setAutoCommit(false);
+            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance();
             flag = memberDAO.doRemove(set);
-            this.dbc.getConnection().commit();
+            DatabaseConnection.getConnection().commit();
             return flag;
         } catch (Exception e) {
             try {
-                this.dbc.getConnection().rollback();
+                DatabaseConnection.getConnection().rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             return false;
         }finally {
-            try {
-                this.dbc.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DatabaseConnection.close();
         }
     }
 
     @Override
     public Member get(String id) {
         try {
-            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance(this.dbc.getConnection());
+            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance();
             return memberDAO.findById(id);
         } catch (Exception e) {
             return null;
         }finally {
-            try {
-                this.dbc.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DatabaseConnection.close();
         }
     }
 
     @Override
     public List<Member> list() {
         try {
-            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance(this.dbc.getConnection());
+            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance();
             return memberDAO.findAll();
         } catch (Exception e) {
             return new ArrayList<>();
         }finally {
-            try {
-                this.dbc.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DatabaseConnection.close();
         }
     }
 
@@ -146,7 +124,7 @@ public class MemberService implements IMemberService {
     public Map<String, Object> split(Integer currentPage, Integer lineSize, String column, String keyWord) {
         Map<String, Object> map = new HashMap<>();
         try {
-            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance(this.dbc.getConnection());
+            IMemberDAO memberDAO = DAOFactory.getIMemberDAOInstance();
             if (column == null || "".equals(column) || keyWord == null || "".equals(keyWord)) {
                 map.put("allMembers", memberDAO.findSplit(currentPage, lineSize));
                 map.put("allRecorders", memberDAO.getAllCount());
@@ -158,11 +136,7 @@ public class MemberService implements IMemberService {
         } catch (Exception e) {
             return map;
         }finally {
-            try {
-                this.dbc.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DatabaseConnection.close();
         }
     }
 }

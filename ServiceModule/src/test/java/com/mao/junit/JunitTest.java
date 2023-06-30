@@ -15,12 +15,12 @@ public class JunitTest {
     @Test
     public void testAdd() {
         Member vo = new Member();
-        vo.setMid("新博");
-        vo.setName("xinbo");
+        vo.setMid("所谓");
+        vo.setName("suowei");
         vo.setAge(18);
         vo.setSex("男");
         vo.setBirthday(new Date());
-        vo.setEmail("xinbo@qq.com");
+        vo.setEmail("suowei@qq.com");
         vo.setNote("大好人");
         IMemberService memberService = ServiceFactory.getIMemberServiceInstance();
         TestCase.assertTrue(memberService.add(vo));
@@ -30,7 +30,7 @@ public class JunitTest {
         Member vo = new Member();
         vo.setMid("chenchao");
         vo.setName("陈超");
-        vo.setAge(28);
+        vo.setAge(29);
         vo.setSex("男");
         vo.setBirthday(new Date());
         vo.setEmail("chenchao@qq.com");
