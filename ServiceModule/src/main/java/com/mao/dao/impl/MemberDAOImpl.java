@@ -3,8 +3,6 @@ package com.mao.dao.impl;
 import com.mao.abs.AbstractDAO;
 import com.mao.dao.IMemberDAO;
 import com.mao.vo.Member;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,19 +43,7 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
 
     @Override
     public boolean doRemove(Set<String> ids) throws SQLException {
-        StringBuffer sql = new StringBuffer(30);
-        sql.append("DELETE FROM member WHERE mid IN(");
-        ids.forEach((id) -> {
-            sql.append("?," );
-        });
-        sql.delete(sql.length() - 1, sql.length()).append(")");
-        super.pstmt = super.conn.prepareStatement(sql.toString());
-        Iterator<String> iter = ids.iterator();
-        int foot = 1;
-        while (iter.hasNext()) {
-            super.pstmt.setString(foot++,iter.next());
-        }
-        return super.pstmt.executeUpdate() == ids.size();
+        return super.handleRemoveByString("member", "mid", ids);
     }
 
     @Override
@@ -163,24 +149,11 @@ public class MemberDAOImpl extends AbstractDAO implements IMemberDAO {
 
     @Override
     public Long getAllCount() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM member";
-        super.pstmt = super.conn.prepareStatement(sql);
-        ResultSet rs = super.pstmt.executeQuery();
-        if (rs.next()) {
-            return rs.getLong(1);
-        }
-        return 0L;
+        return super.handleGetAllCount("member");
     }
 
     @Override
     public Long getAllCount(String column, String keyWord) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM member WHERE " + column + " LIKE ? ";
-        super.pstmt = super.conn.prepareStatement(sql);
-        super.pstmt.setString(1, "%" + keyWord + "%");
-        ResultSet rs = super.pstmt.executeQuery();
-        if (rs.next()) {
-            return rs.getLong(1);
-        }
-        return 0L;
+        return super.handleGetAllCount("member", column, keyWord);
     }
 }

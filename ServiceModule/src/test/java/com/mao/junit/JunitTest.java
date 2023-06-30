@@ -41,7 +41,7 @@ public class JunitTest {
     @Test
     public void testRemove() throws Exception{
         IMemberService memberService =  ServiceFactory.getIMemberServiceInstance();
-        memberService.removeById();
+        memberService.removeById("junit");
     }
 
     @Test
