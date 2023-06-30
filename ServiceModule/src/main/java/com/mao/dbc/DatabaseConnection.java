@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
     public static final String DBDRIVER = "com.mysql.cj.jdbc.Driver";
-    public static final String DBURL = "jdbc:mysql://localhost:3306/mao?useUnicode=true&characterEncoding=UTF8";
+    public static final String DBURL = "jdbc:mysql://localhost:3306/mao?useUnicode=true&characterEncoding=utf-8&useSSL=false";
     public static final String USER = "root";
     public static final String PASSWORD = "mysqladmin";
     public static final ThreadLocal<Connection> THREAD_LOCAL = new ThreadLocal<>();

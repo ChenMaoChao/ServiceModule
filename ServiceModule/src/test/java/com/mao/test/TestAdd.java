@@ -7,7 +7,7 @@ import com.mao.vo.Member;
 import java.util.Date;
 
 public class TestAdd {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Member vo = new Member();
         vo.setMid("A");
         vo.setName("A");
